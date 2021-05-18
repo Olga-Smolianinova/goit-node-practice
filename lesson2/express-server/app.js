@@ -4,8 +4,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser"); //есть cookie, они подключены, пока не нужны, но в конспекте описаны
 const logger = require("morgan"); // это logger, который выполняет логирование
 
-const indexRouter = require("./routes/index"); //роутинг
-const usersRouter = require("./routes/users"); //роутинг
+const indexRouter = require("./routes/index"); //роутинг для лендинга
+const weatherRouter = require("./routes/users"); //роутинг для погоды
 
 const app = express();
 
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: false })); // движок распарс
 app.use(express.static(path.join(__dirname, "public"))); //указываем статику, которая, как указано будет находиться в папке public
 
 app.use("/", indexRouter); //это будет наш сайт
-app.use("/users", usersRouter);
+app.use("/weather", weatherRouter); //это виджет погоды
 
 // catch 404 and forward to error handler
 // здесь формируется ошибка 404
@@ -46,7 +46,7 @@ app.use((req, _, next) => {
   );
 });
 
-// error handler
+// error handler. Нельзя удалять. Из документации обработчик должет содержать 4 параметра: ошибка (err), request, response, next. Так express  поннимает, что это обработчик ошибок. Если next убрать, до для express - это будет просто промежуточное ПО, которое еще и на ошибку реагирует
 //  в express реализовано так, что все ошибки приходят сюда. Есть ошибки выполнения, ошибки самого программиста, есть ошибки сторонних серверов. Нельзя менять параметры, которые передаются
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
