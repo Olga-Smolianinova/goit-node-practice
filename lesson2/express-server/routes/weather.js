@@ -2,8 +2,8 @@
 
 const express = require("express");
 const router = express.Router();
-require("dotenv").config(); //dotenv - модуль, который  загружает переменные среды из файла .env, который нужно добавить в gitignore
 const got = require("got"); //альтернатива axios, не менее популярный пакек
+require("dotenv").config(); //dotenv - модуль, который  загружает переменные среды из файла .env, который нужно добавить в gitignore
 
 /* GET users listing. */
 //это запрос асинхронный
@@ -25,7 +25,8 @@ router.get("/", async (req, res, next) => {
     ); //1 параметр - это всегда URL; 2-й  - объект с searchParams параметрами
 
     // response вернулся, распарсиваем, и достаем необходимые данные
-    const { data } = JSON.parse(response.body);
+    const data = JSON.parse(response.body);
+    res.json(data);
   } catch (e) {
     // пробрасываем ошибку дальше. next - это проброс, и чтобы выполнился обработчик ошибок  next(createError);
     next(e);
