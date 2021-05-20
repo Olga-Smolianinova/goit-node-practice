@@ -46,8 +46,8 @@ router.get(
       // console.log(weather, name, wind);
 
       res.json(weather, name, wind);
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      next(err);
     }
   }
 );
